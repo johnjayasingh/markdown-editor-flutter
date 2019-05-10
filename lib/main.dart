@@ -55,18 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
     RegExp anchor = new RegExp(r"\[\[(.*?)[|](.*?)\]\]");
 
     text = text.replaceAllMapped(bold, (match) {
-      String matchStr = match.group(0).replaceAll("*", "");
-      return '<b>${matchStr}</b>';
+      return '<b>${match.group(1)}</b>';
     });
     text = text.replaceAllMapped(italic, (match) {
-      String matchStr = match.group(0).replaceAll("/", "");
-      return '<i>${matchStr}</i>';
+      return '<i>${match.group(1)}</i>';
     });
     text = text.replaceAllMapped(anchor, (match) {
-      String matchStr1 = match.group(0).replaceAll("", "");
-      String matchStr2 = match.group(1).replaceAll("/", "");
-
-      return '<a link="${matchStr1}" target="_blank">${matchStr2}</a>';
+      return '<a link="${match.group(1)}" target="_blank">${match.group(2)}</a>';
     });
     setState(() {
       _html = '<div>${text}</div>';
