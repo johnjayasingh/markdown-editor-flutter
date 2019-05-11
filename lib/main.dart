@@ -53,15 +53,15 @@ class _MyHomePageState extends State<MyHomePage> {
     RegExp bold = new RegExp(r"\*\*(.*?)\*\*");
     RegExp italic = new RegExp(r"\/\/(.*?)\/\/");
     RegExp anchor = new RegExp(r"\[\[(.*?)[|](.*?)\]\]");
-
+    text = text.replaceAllMapped(anchor, (match) {
+      return '<a link="${match.group(1)}" target="_blank">${match.group(
+          2)}</a>';
+    });
     text = text.replaceAllMapped(bold, (match) {
       return '<b>${match.group(1)}</b>';
     });
     text = text.replaceAllMapped(italic, (match) {
       return '<i>${match.group(1)}</i>';
-    });
-    text = text.replaceAllMapped(anchor, (match) {
-      return '<a link="${match.group(1)}" target="_blank">${match.group(2)}</a>';
     });
     setState(() {
       _html = '<div>${text}</div>';
@@ -69,24 +69,25 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _onConvertPressed() {
-    print(_value);
-  }
-
   void _makeBold() {
     setState(() {
-      _value += '**text**';
+      _controller.text = (_controller.text + " **text**");
     });
+    this._onFieldSubmitted(_controller.text);
   }
+
   void _makeItalic() {
     setState(() {
-      _value += '//text//';
+      _controller.text = (_controller.text + " //text//");
     });
+    this._onFieldSubmitted(_controller.text);
   }
+
   void _makeAnchor() {
     setState(() {
-      _value += '[[link|text]]';
+      _controller.text = (_controller.text + " [[link|text]]");
     });
+    this._onFieldSubmitted(_controller.text);
   }
 
   @override
