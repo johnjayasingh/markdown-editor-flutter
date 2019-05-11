@@ -38,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _html = '<h1>john</h1>';
   String _value =
-      '**Angular** is a TypeScript based //opensource// front-end web application platform. [[https://angular.io/|Learnmore]]';
+      '**Flutter** is a //Google// backed multi platform front-end development platform. [[https://flutter.dev/|Learnmore]]';
 
   TextEditingController _controller;
 
@@ -73,7 +73,21 @@ class _MyHomePageState extends State<MyHomePage> {
     print(_value);
   }
 
-  void _makeSelectedBold() {}
+  void _makeBold() {
+    setState(() {
+      _value += '**text**';
+    });
+  }
+  void _makeItalic() {
+    setState(() {
+      _value += '//text//';
+    });
+  }
+  void _makeAnchor() {
+    setState(() {
+      _value += '[[link|text]]';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   FlatButton(
                     color: Colors.black54,
-                    onPressed: _onConvertPressed,
+                    onPressed: _makeBold,
                     child: Text(
                       'B',
                       textAlign: TextAlign.center,
@@ -124,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   FlatButton(
                     color: Colors.blueGrey,
-                    onPressed: _onConvertPressed,
+                    onPressed: _makeItalic,
                     child: Text(
                       'I',
                       textAlign: TextAlign.center,
@@ -134,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   FlatButton(
                     color: Colors.blueAccent,
-                    onPressed: _onConvertPressed,
+                    onPressed: _makeAnchor,
                     child: Text(
                       'Link',
                       textAlign: TextAlign.center,
